@@ -37,4 +37,4 @@ So the flow is: edit in Notion → open the controller → load the script list 
 
 ---
 
-Vibe coded with [Cursor](https://cursor.com) and [Antigravity](https://antigravity.dev).
+Vibe coded with [Cursor](https://cursor.com) and [Antigravity](https://antigravity.google/).
