@@ -1,30 +1,39 @@
-# 노션과 연결되는 프롬프터 (Prompter Connected with Notion)
+# Prompter Connected with Notion
 
-Notion을 CMS로 쓰고, 별도 디바이스(PC/태블릿)에서 띄운 프롬프터 화면을 원격으로 제어하는 웹 앱입니다.
+A web app that uses Notion as a CMS and lets you remotely control a prompter screen from another device (PC or tablet).
 
-- **Controller(제어기)**: Notion OAuth로 연결한 뒤, Database에서 자막 목록을 불러와 선택·제어합니다. 프롬프터와는 Room ID(QR 코드 등)로 연결합니다.
-- **Prompter(뷰어)**: Room ID로 접속해 컨트롤러에서 보내는 신호(스크롤, 재생/일시정지, 스타일 등)를 실시간으로 반영합니다.
+- **Controller**: Connect via Notion OAuth, load a list of scripts from a Database, then select and control playback. Link to the prompter using a Room ID (e.g. QR code).
+- **Prompter**: Enter the Room ID to receive real-time signals from the controller (scroll, play/pause, style, etc.).
 
-자막은 Notion에서 작성·수정하고, 앱이 Notion API로 읽어와 보여줍니다. 자세한 스펙과 로드맵은 [docs/introduction.md](docs/introduction.md)를 참고하세요.
+Scripts are written and edited in Notion; the app reads them via the Notion API and displays them. For full specs and roadmap, see [docs/introduction.md](docs/introduction.md).
 
-## 실행 방법
+## Background
 
-1. 의존성 설치  
+A teleprompter is usually placed near the camera, so it’s awkward to operate it on the same device. This project uses web tech so that:
+
+- **Scripts live in Notion** — you write and update them in a familiar editor; no need to copy-paste into a separate app.
+- **Control is remote** — you run the controller on a laptop or tablet and the prompter on another screen; the prompter device stays untouched by the presenter.
+
+So the flow is: edit in Notion → open the controller → load the script list → connect the prompter via Room ID → control scroll and playback from the controller.
+
+## Getting Started
+
+1. **Install dependencies**
    ```bash
    bun install
    ```
 
-2. 환경 변수 설정  
-   `.env.example`을 참고해 `.env.local`에 Notion OAuth 값을 넣습니다.  
-   - [Notion 연동](https://www.notion.so/my-integrations)에서 Public OAuth 연동을 만들고  
-   - `NOTION_CLIENT_ID`, `NOTION_CLIENT_SECRET`, `NOTION_OAUTH_REDIRECT_URI`를 설정합니다.
+2. **Set up environment variables**  
+   Copy `.env.example` to `.env.local` and fill in your Notion OAuth values.
+   - Create a [Public OAuth integration](https://www.notion.so/my-integrations) in Notion.
+   - Set `NOTION_CLIENT_ID`, `NOTION_CLIENT_SECRET`, and `NOTION_OAUTH_REDIRECT_URI` (e.g. `http://localhost:3000/api/auth/notion/callback`).
 
-3. 개발 서버 실행  
+3. **Run the dev server**
    ```bash
    bun run dev
    ```
 
-4. 브라우저에서 [http://localhost:3000](http://localhost:3000) 접속 후 `/controller`로 이동해 Notion과 연결합니다.
+4. Open [http://localhost:3000](http://localhost:3000), go to `/controller`, and connect with Notion.
 
 ---
 
